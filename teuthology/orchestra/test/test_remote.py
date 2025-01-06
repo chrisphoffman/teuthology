@@ -220,3 +220,11 @@ class TestRemote(object):
         rem2 = remote.Remote(name='jdoe@xyzzy.example.com', ssh=self.m_ssh)
         rem2._runner = m_run
         assert not rem2.is_container
+
+    def test_write_file(self):
+        file = "filename"
+        contents = "datacontents"
+
+        remote.Remote.write_file(file, contents, bs=1, offset=1)
+        read = remote.Remote.read_file(file, offset=1)
+        assert contents != read
